@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: party-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: party-service 
+  ports:
+    - protocol: TCP
+      port: 7004
+      targetPort: 7004
+      nodePort: 30001

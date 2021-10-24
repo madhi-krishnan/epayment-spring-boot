@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: party-service-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: party-service
+  template:
+    metadata:
+      labels:
+        app: party-service
+    spec:
+      containers:
+      - name: party-service-image #this image will get over ridden by the image defined in deployment.yaml
+        image: us-central1-docker.pkg.dev/my-kubernetes-project-328912/party-services/party-services-image:v1
+        ports:
+        - containerPort: 7004
+
