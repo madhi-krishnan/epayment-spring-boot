@@ -4,39 +4,21 @@ steps:
       - build
       - '-t'
       - >-
-        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/party-services-image:v1
+        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
       - .
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - >-
-        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/party-services-image:v1
+        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
 
    # create deployment using k8s resource files
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - run
       - --filename=k8s
-      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/party-services-image:v1
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
       - --location=us-central1-c
       - --cluster=my-cluster  
 
-  - name: google/cloud-sdk
-    args:
-      - gcloud
-      - run
-      - deploy
-      - governor
-      - >-
-        --image=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/governor:$SHORT_SHA
-      - '--region'
-      - us-central1
-      - '--platform'
-      - managed
-      - '--allow-unauthenticated'
       
-artifacts:
-  objects:
-    location: 'gs://fyndna-artifact-storage-1/'
-    paths:
-      - build/libs/party-services-0.0.1-SNAPSHOT.jar
