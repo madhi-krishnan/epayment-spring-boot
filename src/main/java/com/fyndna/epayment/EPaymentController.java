@@ -33,7 +33,7 @@ public class EPaymentController {
         return null;
     }
 
-    @GetMapping(path = "/healthCheck")
+    @GetMapping(path = "/")
     public String getHealth(){
         return "E-Payment is up and Running";
     }
