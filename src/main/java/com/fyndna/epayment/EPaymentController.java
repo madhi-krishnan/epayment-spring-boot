@@ -37,4 +37,8 @@ public class EPaymentController {
     public String getHealth(){
         return "E-Payment is up and Running";
     }
+    @GetMapping(path = "/")
+    public String getHealthOnSlash(){
+        return "E-Payment is up and Running";
+    }
 }
