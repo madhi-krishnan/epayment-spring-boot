@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: e-payment-service
+  name: "e-payment-service"
+  namespace: default
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: e-payment
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-      nodePort: 30002

@@ -4,20 +4,20 @@ steps:
       - build
       - '-t'
       - >-
-        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
+        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:$SHORT_SHA
       - .
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - >-
-        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
+        us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:$SHORT_SHA
 
    # create deployment using k8s resource files
   - name: "gcr.io/cloud-builders/gke-deploy"
     args:
       - run
       - --filename=k8s
-      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:v3
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/e-payment-image:$SHORT_SHA
       - --location=us-central1-c
       - --cluster=my-cluster  
 

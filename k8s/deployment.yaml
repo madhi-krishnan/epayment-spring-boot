@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: e-payment-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: e-payment
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: e-payment-image #this image will get over ridden by the image defined in deployment.yaml
-        image: us-central1-docker.pkg.dev/my-kubernetes-project-328912/e-payment/e-payment-image:v1
+        image: us-central1-docker.pkg.dev/my-kubernetes-project-328912/e-payment/e-payment-image:v10
         ports:
         - containerPort: 8080
 
