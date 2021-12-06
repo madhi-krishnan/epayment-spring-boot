@@ -23,11 +23,9 @@ public class EPaymentController {
 
     @GetMapping(path = "/getTransactionStatus/{transactionId}")
     public PaymentModel getTransaction(@PathVariable(name = "transactionId",required = true) String transactionId){
-        for(PaymentModel model : paymentModels){
-            if(model.getPaymentId().equals(transactionId)){
-                return model;
-            }else {
-                throw new TransactionNotFoundException("txnId - "+transactionId +"Not Found");
+        for(PaymentModel paymentModel : paymentModels){
+            if(paymentModel.getPaymentId().equals(transactionId)){
+                return paymentModel;
             }
         }
         return null;
