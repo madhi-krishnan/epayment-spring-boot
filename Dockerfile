@@ -21,11 +21,4 @@ RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/archive/java/2.27/cdbg_java_agent_gce.tar.gz | \
      tar xvz -C /opt/cdbg
 
-# Start the agent when the app is deployed.
-RUN java -agentpath:/opt/cdbg/cdbg_java_agent.so \
-    -Dcom.google.cdbg.module=e-payment \
-    -Dcom.google.cdbg.version=$VERSION \
-    -Dcom.google.cdbg.breakpoints.enable_canary=true \
-    -jar /app/e-payment.jar \
-
-ENTRYPOINT ["java","-jar","/app/e-payment.jar"]
+ENTRYPOINT ["java","-agentpath:/opt/cdbg/cdbg_java_agent.so","-Dcom.google.cdbg.module=e-payment","-Dcom.google.cdbg.version=$VERSION","-Dcom.google.cdbg.breakpoints.enable_canary=true","-jar /app/e-payment.jar "]
