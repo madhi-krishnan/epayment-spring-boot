@@ -15,6 +15,6 @@ FROM openjdk:11-jre-slim
 LABEL key="madhi.krishnan@fyndna.com"
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
-COPY --from=agent /agent/cdbg_java_agent.so agent.so
+COPY --from=agent /opt/cdbg/cdbg_java_agent.so /app/agent.so
 EXPOSE 8080
-ENTRYPOINT [ "java", "-agentpath:/opt/cdbg/cdbg_java_agent.so", "-Dcom.google.cdbg.breakpoints.enable_canary=false", "-jar", "/app/e-payment.jar"]
+ENTRYPOINT [ "java", "-agentpath:/app/agent.so", "-Dcom.google.cdbg.breakpoints.enable_canary=false", "-jar", "/app/e-payment.jar"]
