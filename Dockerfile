@@ -8,9 +8,9 @@ FROM openjdk:11-jre-slim
 LABEL key="madhi.krishnan@fyndna.com"
 EXPOSE 8080
 
-# RUN  apt-get update \
-#   && apt-get install -y wget \
-#   && rm -rf /var/lib/apt/lists/*
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
