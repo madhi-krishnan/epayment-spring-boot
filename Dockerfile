@@ -6,7 +6,6 @@ RUN gradle assemble
 
 FROM alpine as agent
 USER root
-WORKDIR /agent
 RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/archive/java/2.27/cdbg_java_agent_gce.tar.gz | \
      tar xvz -C /opt/cdbg
