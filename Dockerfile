@@ -15,11 +15,9 @@ RUN  apt-get update \
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
 
-
-# Create a directory for the Debugger. Add and unzip the agent in the directory.
 RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/archive/java/2.27/cdbg_java_agent_gce.tar.gz | \
      tar xvz -C /opt/cdbg
 
 
-ENTRYPOINT ["java","-agentpath:/opt/cdbg/cdbg_java_agent.so","-jar","/app/e-payment.jar"]
+ENTRYPOINT ["java","-agentpath:/opt/cdbg/cdbg_java_agent.so,-Dcom.google.cdbg.module=e-payment,-Dcom.google.cdbg.version=1.0,-Dcom.google.cdbg.breakpoints.enable_canary=true","-jar","/app/e-payment.jar"]
