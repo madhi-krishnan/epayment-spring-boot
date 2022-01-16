@@ -20,4 +20,8 @@ RUN mkdir /opt/cdbg && \
      tar xvz -C /opt/cdbg
 
 
-ENTRYPOINT ["java","-agentpath:/opt/cdbg/cdbg_java_agent.so,-Dcom.google.cdbg.module=e-payment,-Dcom.google.cdbg.version=1.0,-Dcom.google.cdbg.breakpoints.enable_canary=true","-jar","/app/e-payment.jar"]
+CMD java -agentpath:/opt/cdbg/cdbg_java_agent.so \
+    -Dcom.google.cdbg.module=e-payment \
+    -Dcom.google.cdbg.version=${VERSION} \
+    -Dcom.google.cdbg.breakpoints.enable_canary=true \
+    -jar /app/e-payment.jar
