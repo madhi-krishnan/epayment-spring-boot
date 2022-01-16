@@ -1,4 +1,3 @@
-ARG VERSION=v1.0
 FROM gradle:7.2.0-jdk11 AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
@@ -19,9 +18,4 @@ RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/archive/java/2.27/cdbg_java_agent_gce.tar.gz | \
      tar xvz -C /opt/cdbg
 
-
-CMD java -agentpath:/opt/cdbg/cdbg_java_agent.so \
-    -Dcom.google.cdbg.module=e-payment \
-    -Dcom.google.cdbg.version=${VERSION} \
-    -Dcom.google.cdbg.breakpoints.enable_canary=true \
-    -jar /app/e-payment.jar
+ENTRYPOINT ["java","-jar","/app/e-payment.jar"]
