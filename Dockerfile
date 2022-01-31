@@ -24,4 +24,4 @@ RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
 WORKDIR /
 #Add Java agent to while starting application
-ENTRYPOINT ["java","-agentpath:/opt/cdbg/cdbg_java_agent.so,","-Dcom.google.cdbg.module=e-payment-gke","-Dcom.google.cdbg.version=2.0","-Dcom.google.cdbg.breakpoints.enable_canary=true","-jar","/app/e-payment.jar"]
+ENTRYPOINT ["java","-jar","/app/e-payment.jar"]
