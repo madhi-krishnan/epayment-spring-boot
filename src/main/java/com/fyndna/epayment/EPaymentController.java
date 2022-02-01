@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.Random;
 
 @RestController
 public class EPaymentController {
@@ -68,6 +69,40 @@ public class EPaymentController {
     @GetMapping("/getSystemProperty")
     public SystemProperty getSystemProperty() throws UnknownHostException {
         return new SystemProperty(InetAddress.getLocalHost().getHostAddress(),Integer.parseInt(environment.getProperty("server.port")),InetAddress.getLocalHost().getHostName());
+    }
+
+    @GetMapping("/profiler")
+    public String doProfile() {
+        System.out.println("Let's profile!");
+
+        // generate random number between 1 and 10
+        Random rand = new Random();
+        int delay = rand.nextInt(10) + 1;
+
+        // spin CPU for random number
+        int blocked = BlockCPU(delay);
+        // return
+        return ("Blocked CPU for " + delay);
+    }
+
+    public int BlockCPU(int blockFor) {
+        System.out.println("entering CPU block");
+        // get current time
+        long startTime = System.currentTimeMillis();
+        System.out.println("starting block at " + String.valueOf(startTime));
+        // + String.valueOf(startTime));
+        // current time + delay
+        long endTime = startTime + (blockFor * 1000);
+        System.out.println("will end block at " + endTime);
+        int result = 0;
+        Random blockRand = new Random();
+        while (true) {
+            result += blockRand.nextInt(1000) * blockRand.nextInt(1000);
+            if (System.currentTimeMillis() > endTime) {
+                return blockFor;
+            }
+        }
+
     }
 
 }
