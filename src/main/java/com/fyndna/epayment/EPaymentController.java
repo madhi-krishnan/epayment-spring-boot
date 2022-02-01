@@ -73,7 +73,7 @@ public class EPaymentController {
 
     @GetMapping("/profiler")
     public String doProfile() {
-        System.out.println("Let's profile!");
+    
 
         // generate random number between 1 and 10
         Random rand = new Random();
@@ -82,7 +82,7 @@ public class EPaymentController {
         // spin CPU for random number
         int blocked = BlockCPU(delay);
         // return
-        return ("Blocked CPU for " + delay);
+        return ("Blocked CPU for " + delay+"sec");
     }
 
     public int BlockCPU(int blockFor) {
