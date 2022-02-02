@@ -24,4 +24,4 @@ RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
 WORKDIR /
 #Add Java agent to while starting application
-ENTRYPOINT ["java","-jar","/app/e-payment.jar"]
+CMD ["java","-jar","/app/e-payment.jar"]
