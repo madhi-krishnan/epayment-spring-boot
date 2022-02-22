@@ -1,12 +1,16 @@
 package com.fyndna.epayment;
 
+import com.fyndna.epayment.model.ConfigMapModel;
 import com.fyndna.epayment.model.Greeting;
 import com.fyndna.epayment.model.PaymentModel;
 import com.fyndna.epayment.model.SystemProperty;
+import com.fyndna.epayment.services.ConfigMapService;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +35,9 @@ public class EPaymentController {
         paymentModels.add(new PaymentModel("txn004","failed",new BigDecimal("1323.00")));
         paymentModels.add(new PaymentModel("txn005","success",new BigDecimal("22222.00")));
     }
+
+    @Autowired
+    private ConfigMapService configMapService;
 
     @Autowired
     private Environment environment;
@@ -105,4 +112,13 @@ public class EPaymentController {
 
     }
 
+    @GetMapping(path = "/v4.0/healthz")
+    public ResponseEntity getHealthStatus(){
+        ConfigMapModel configMapModel = configMapService.getConfigMap(1);
+        if(configMapModel != null && configMapModel.getConfigMapValue().equalsIgnoreCase("yes")){
+            return new ResponseEntity(HttpStatus.OK);
+        }else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
 }

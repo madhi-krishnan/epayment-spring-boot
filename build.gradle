@@ -19,8 +19,18 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot's JPA support
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+	// Spring Data REST support
+	implementation('org.springframework.boot:spring-boot-starter-data-rest')
+
+	// PostgresSQL-specific connector for JPA
+	implementation('org.postgresql:postgresql:9.4-1206-jdbc42')
+
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus'
 	// https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
 	implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.8.1'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop

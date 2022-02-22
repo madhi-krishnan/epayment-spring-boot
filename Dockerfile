@@ -10,12 +10,12 @@ RUN  apt-get update \
   && apt-get install -y wget \
   && rm -rf /var/lib/apt/lists/*
 
-#Make directory and download java agent to it of your version
+#add cloud debugger agent
 RUN mkdir /opt/cdbg && \
      wget -qO- https://storage.googleapis.com/cloud-debugger/archive/java/2.27/cdbg_java_agent_gce.tar.gz | \
      tar xvz -C /opt/cdbg
 
-# create a directory for cloud profile. 
+#add cloud profiler agent
 RUN mkdir -p /opt/cprof && \
   wget -q -O- https://storage.googleapis.com/cloud-profiler/java/latest/profiler_java_agent.tar.gz \
   | tar xzv -C /opt/cprof
@@ -23,5 +23,5 @@ RUN mkdir -p /opt/cprof && \
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/e-payment-0.0.1-SNAPSHOT.jar /app/e-payment.jar
 WORKDIR /
-#Add Java agent to while starting application
+
 CMD ["java","-jar","/app/e-payment.jar"]

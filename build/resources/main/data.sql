@@ -1,0 +1,1 @@
+INSERT into config_map_model (config_map_id,config_map_key,config_map_value) VALUES(1,'isHealthy','yes');
