@@ -6,6 +6,6 @@ spring:
       ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: "jdbc:postgresql://postgres.lb-probe.svc.local:5432/postgresdb"
+    url: "jdbc:postgresql://34.100.205.177:5432/postgresdb"
     username: admin
     password: admin
