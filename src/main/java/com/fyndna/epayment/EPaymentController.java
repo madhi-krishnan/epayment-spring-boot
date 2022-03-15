@@ -121,4 +121,9 @@ public class EPaymentController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/v1/interceptor/hitApplication")
+    public ResponseEntity passThroughDapr(){
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
