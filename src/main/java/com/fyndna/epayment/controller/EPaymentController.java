@@ -57,6 +57,11 @@ public class EPaymentController {
 
     @GetMapping(path = "/v3.0/healthz")
     public String getHealth(){
+        try {
+            Thread.sleep(300L);
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
         return "E-Payment is up and Running";
     }
 
